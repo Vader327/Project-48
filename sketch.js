@@ -731,7 +731,7 @@ function draw(){
 
 async function getData(){
   for(x in horoscopeNames){
-    horoscope = (await (await fetch("https://cors-anywhere.herokuapp.com/http://ohmanda.com/api/horoscope/" + horoscopeNames[x].toString().toLowerCase())).json())["horoscope"].substring(1);
+    horoscope = (await (await fetch("https://ohmanda.com/api/horoscope/" + horoscopeNames[x].toString().toLowerCase())).json())["horoscope"].substring(1);
     horoscopes.push({name:horoscopeNames[x], horoscope:horoscope});
   }
 
