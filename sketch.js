@@ -27,10 +27,13 @@ var horoscopes = [];
 var horoscopeNames = ["Aquarius","Pisces","Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn"];
 
 var clicked = false;
+var horoscopeLoaded = false;
 var isloaded = false;
 
 function setup(){
-  getData();
+  getHoroscope();
+  getHospitalAndWeatherData();
+  getJoke();
 
   document.getElementById("defaultCanvas0").remove();
 
@@ -351,7 +354,7 @@ function draw(){
       horoscopeSelector.elt.value = "defaultValue";
       horoscopeText.show();
 
-      if(isloaded == true){
+      if(horoscopeLoaded == true){
         horoscopeText.html("Please select your Sun Sign.");
       }
       clicked = true;
@@ -729,15 +732,16 @@ function draw(){
   })
 }
 
-async function getData(){
+async function getHoroscope(){
   for(x in horoscopeNames){
     horoscope = (await (await fetch("https://cors-anywhere.herokuapp.com/http://ohmanda.com/api/horoscope/" + horoscopeNames[x].toString().toLowerCase())).json())["horoscope"].substring(1);
     horoscopes.push({name:horoscopeNames[x], horoscope:horoscope});
   }
+  horoscopeText.html("Please select your Sun Sign.");
+  horoscopeLoaded = true;
+}
 
-  joke = (await (await fetch("https://icanhazdadjoke.com/", {headers:{Accept: "application/json"}})).json()).joke;
-  jokeText.html(joke);
-
+async function getHospitalAndWeatherData(){
   response = await fetch("data.txt");
   responseJOSN = await response.json();
   hospital = responseJOSN["Table1"];
@@ -760,7 +764,6 @@ async function getData(){
   }
   temperature.html("Please select a city.");
   humidity.html("");
-  horoscopeText.html("Please select your Sun Sign.");
   info.html("Please select a city and a hospital.<br>Select a city then press the search button to select a hospital.");
   isloaded = true;
 }
