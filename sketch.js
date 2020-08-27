@@ -736,7 +736,6 @@ async function getHoroscope(){
   for(a in horoscopeNames){
     horoscope = (await (await fetch("https://cors-anywhere.herokuapp.com/http://ohmanda.com/api/horoscope/" + horoscopeNames[a].toString().toLowerCase())).json())["horoscope"].substring(1);
     horoscopes.push({name:horoscopeNames[a], horoscope:horoscope});
-    console.log(horoscopeNames[a]);
   }
   horoscopeLoaded = true;
 }
