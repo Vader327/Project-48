@@ -1,6 +1,6 @@
 var response, responseJOSN, hospital, hospitalJSON;
 var citySelector, hospitalSelector, search;
-var x, i, info, boxDiv, hideButton;
+var x, i, a, info, boxDiv, hideButton;
 var weatherSelector, horoscopeSelector;
 var horoscope, horoscopeText, weather, weather_query, jokeText;
 var temperature, humidity, weatherDescription;
@@ -733,11 +733,11 @@ function draw(){
 }
 
 async function getHoroscope(){
-  for(x in horoscopeNames){
-    horoscope = (await (await fetch("https://cors-anywhere.herokuapp.com/http://ohmanda.com/api/horoscope/" + horoscopeNames[x].toString().toLowerCase())).json())["horoscope"].substring(1);
-    horoscopes.push({name:horoscopeNames[x], horoscope:horoscope});
+  for(a in horoscopeNames){
+    horoscope = (await (await fetch("https://cors-anywhere.herokuapp.com/http://ohmanda.com/api/horoscope/" + horoscopeNames[a].toString().toLowerCase())).json())["horoscope"].substring(1);
+    horoscopes.push({name:horoscopeNames[a], horoscope:horoscope});
+    console.log(horoscopeNames[a]);
   }
-  horoscopeText.html("Please select your Sun Sign.");
   horoscopeLoaded = true;
 }
 
